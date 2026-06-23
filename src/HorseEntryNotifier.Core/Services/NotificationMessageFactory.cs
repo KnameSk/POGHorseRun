@@ -26,6 +26,7 @@ public sealed class NotificationMessageFactory(IRaceUrlBuilder raceUrlBuilder, I
             entry,
             raceUrlBuilder.BuildRaceUrl(entry),
             clock.Now,
+            horse.NominatorName,
             horse.Memo);
     }
 }

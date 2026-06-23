@@ -25,6 +25,9 @@ public sealed class CommandRunner(
             case HorseListCommand:
                 await ListHorsesAsync(cancellationToken);
                 break;
+            case HorseNominateCommand nominate:
+                await SetNominatorAsync(nominate, cancellationToken);
+                break;
             case CheckCommand check:
                 await CheckAsync(check, cancellationToken);
                 break;
@@ -38,7 +41,11 @@ public sealed class CommandRunner(
 
     private async Task AddHorseAsync(HorseAddCommand command, CancellationToken cancellationToken)
     {
-        var result = await registryService.AddAsync(command.HorseName, command.Memo, cancellationToken);
+        var result = await registryService.AddAsync(
+            command.HorseName,
+            command.Memo,
+            command.NominatorName,
+            cancellationToken);
         var verb = result.Created ? "登録しました" : "登録内容を更新しました";
         System.Console.WriteLine($"{result.Horse.HorseName} を{verb}。");
     }
@@ -49,6 +56,18 @@ public sealed class CommandRunner(
         System.Console.WriteLine(removed
             ? $"{command.HorseName} を通知対象から外しました。"
             : $"有効な登録が見つかりません: {command.HorseName}");
+    }
+
+    private async Task SetNominatorAsync(HorseNominateCommand command, CancellationToken cancellationToken)
+    {
+        var horse = await registryService.SetNominatorAsync(
+            command.HorseName,
+            command.NominatorName,
+            cancellationToken);
+
+        System.Console.WriteLine(horse is null
+            ? $"登録馬が見つかりません: {command.HorseName}"
+            : $"{horse.HorseName} の指名者を {horse.NominatorName} に設定しました。");
     }
 
     private async Task ListHorsesAsync(CancellationToken cancellationToken)
@@ -64,7 +83,10 @@ public sealed class CommandRunner(
         {
             var status = horse.Enabled ? "有効" : "無効";
             var memo = string.IsNullOrWhiteSpace(horse.Memo) ? string.Empty : $" / {horse.Memo}";
-            System.Console.WriteLine($"[{status}] {horse.HorseName}{memo}");
+            var nominator = string.IsNullOrWhiteSpace(horse.NominatorName)
+                ? string.Empty
+                : $" / 指名者: {horse.NominatorName}";
+            System.Console.WriteLine($"[{status}] {horse.HorseName}{memo}{nominator}");
         }
     }
 
@@ -113,6 +135,7 @@ public sealed class CommandRunner(
 
                {message.Description}
 
+               🎯 指名者：{message.NominatorName ?? "未設定"}
                📅 日付：{entry.RaceDate:yyyy/MM/dd}
                🏟 競馬場：{entry.RacecourseName}
                🏁 レース：{entry.RaceNumber}R {entry.RaceName}
@@ -134,7 +157,8 @@ public sealed class CommandRunner(
         System.Console.WriteLine("""
                                  競馬出走通知
 
-                                   horse add <馬名> [--memo <メモ>]  馬を登録
+                                   horse add <馬名> [--memo <メモ>] [--nominator <指名者>]
+                                   horse nominate <馬名> <指名者>    指名者を設定・変更
                                    horse remove <馬名>               馬を通知対象から外す
                                    horse list                        登録馬を一覧表示
                                    check [--from yyyy-MM-dd] [--to yyyy-MM-dd] [--dry-run]
