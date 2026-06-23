@@ -3,7 +3,7 @@
 1. Windows 10 / 11 に .NET 8 SDK をインストールします。
 2. このフォルダで `dotnet restore HorseEntryNotifier.sln` を実行します。
 3. `dotnet test HorseEntryNotifier.sln` が成功することを確認します。
-4. `dotnet run --project src/HorseEntryNotifier.Console -- horse add "ジェットシェヴロン"` で馬を登録します。
+4. `dotnet run --project src/HorseEntryNotifier.Console -- horse add "ジェットシェヴロン" --memo "牡2" --nominator "田中"` で馬とPOG指名者を登録します。
 5. `dotnet run --project src/HorseEntryNotifier.Console -- check --dry-run` でモック通知を確認します。
 6. Discord Webhookを設定したあと、`check` を実行します。
 
