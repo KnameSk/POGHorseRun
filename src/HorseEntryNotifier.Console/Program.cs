@@ -20,6 +20,7 @@ builder.Configuration.AddJsonFile(
     reloadOnChange: false);
 builder.Configuration.AddUserSecrets<Program>(optional: true);
 builder.Configuration.AddEnvironmentVariables();
+builder.Logging.AddFilter("System.Net.Http.HttpClient.IDiscordNotifier", LogLevel.Warning);
 
 var appOptions = builder.Configuration.GetSection("App").Get<AppOptions>() ?? new AppOptions();
 var discordOptions = builder.Configuration.GetSection("Discord").Get<DiscordOptions>() ?? new DiscordOptions();
