@@ -8,6 +8,7 @@ public sealed record NotificationMessage(
     RaceEntry Entry,
     string RaceUrl,
     DateTimeOffset NotificationTime,
+    string? NominatorName,
     string? Memo);
 
 public enum NotificationDisposition

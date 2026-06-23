@@ -31,6 +31,7 @@ public sealed class DiscordPayloadBuilder(DiscordOptions options)
             new Field("🛣 条件", $"{entry.RaceClass} / {entry.TrackType}{entry.Distance}m", true),
             new Field("👤 騎手", entry.JockeyName ?? "未定", true),
             new Field("🔢 枠番・馬番", number, true),
+            new Field("🎯 指名者", message.NominatorName ?? "未設定", true),
             new Field("📝 メモ", message.Memo ?? "なし", false)
         };
 
