@@ -22,7 +22,6 @@ public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbCon
             entity.Property(x => x.HorseName).HasMaxLength(200).IsRequired();
             entity.Property(x => x.NormalizedHorseName).HasMaxLength(200).IsRequired();
             entity.Property(x => x.Memo).HasMaxLength(1000);
-            entity.Property(x => x.NominatorName).HasMaxLength(200);
             entity.HasIndex(x => x.NormalizedHorseName).IsUnique();
         });
 
