@@ -1,0 +1,40 @@
+[
+  {
+    "raceId": "20260627030105",
+    "raceDate": "2026-06-27",
+    "racecourseCode": "03",
+    "racecourseName": "福島",
+    "raceNumber": 5,
+    "raceName": "2歳新馬",
+    "raceClass": "2歳新馬",
+    "trackType": "芝",
+    "distance": 1800,
+    "startTime": "12:25:00",
+    "horseId": "2024101234",
+    "horseName": "ジェットシェヴロン",
+    "jockeyId": "01088",
+    "jockeyName": "川田将雅",
+    "frameNumber": 4,
+    "horseNumber": 7,
+    "rawData": "mock:race_entries_sample.json"
+  },
+  {
+    "raceId": "20260628020111",
+    "raceDate": "2026-06-28",
+    "racecourseCode": "02",
+    "racecourseName": "函館",
+    "raceNumber": 11,
+    "raceName": "函館記念",
+    "raceClass": "GIII",
+    "trackType": "芝",
+    "distance": 2000,
+    "startTime": "15:20:00",
+    "horseId": "2021105678",
+    "horseName": "サンプルホース",
+    "jockeyId": "01126",
+    "jockeyName": "サンプル騎手",
+    "frameNumber": null,
+    "horseNumber": null,
+    "rawData": "mock:race_entries_sample.json"
+  }
+]

@@ -1,0 +1,28 @@
+name: build-and-test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore HorseEntryNotifier.sln
+
+      - name: Test with mock data
+        run: dotnet test HorseEntryNotifier.sln --configuration Release --no-restore
+        env:
+          JraVan__UseMock: "true"

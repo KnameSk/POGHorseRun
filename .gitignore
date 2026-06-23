@@ -1,0 +1,26 @@
+bin/
+obj/
+.vs/
+.idea/
+.vscode/
+.dotnet/
+.dotnet-cli-home/
+.nuget/
+.appdata/
+.tools/
+TestResults/
+coverage/
+publish/
+logs/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.user
+*.suo
+.env
+appsettings.Local.json
+
+# ユーザーが配置するJRA-VAN SDK・仕様書は再配布せず、Gitにも含めません。
+docs/jravan/*
+!docs/jravan/.gitkeep
