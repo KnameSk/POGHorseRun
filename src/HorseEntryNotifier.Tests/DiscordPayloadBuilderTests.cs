@@ -24,7 +24,6 @@ public sealed class DiscordPayloadBuilderTests
             TestData.RaceEntry(),
             "https://example.test/race/race-001",
             FixedClock.Instance.Now,
-            "田中",
             "POG指名馬");
 
         using var json = JsonDocument.Parse(builder.BuildJson(message));
@@ -40,9 +39,5 @@ public sealed class DiscordPayloadBuilderTests
         Assert.Contains(
             embed.GetProperty("fields").EnumerateArray(),
             field => field.GetProperty("value").GetString() == "5R 2歳新馬");
-        Assert.Contains(
-            embed.GetProperty("fields").EnumerateArray(),
-            field => field.GetProperty("name").GetString() == "🎯 指名者" &&
-                     field.GetProperty("value").GetString() == "田中");
     }
 }

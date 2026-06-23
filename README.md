@@ -9,7 +9,7 @@
 - 通知対象馬の登録、無効化、一覧表示
 - 指定期間の出馬表チェック
 - 馬名の全角・半角、空白、大小文字の揺れを吸収した照合
-- Discord Embed通知（POG指名者、日付、競馬場、レース、条件、距離、発走、騎手、枠番・馬番、URL、通知日時）
+- Discord Embed通知（日付、競馬場、レース、条件、距離、発走、騎手、枠番・馬番、URL、通知日時）
 - SQLiteによる同一馬・同一レースの重複通知防止
 - 騎手変更、馬番更新を別通知キーとして扱える拡張構造
 - Discordへ送らないdry-run
@@ -30,7 +30,7 @@ PowerShellでこのフォルダへ移動し、次を実行します。
 ```powershell
 dotnet restore HorseEntryNotifier.sln
 dotnet test HorseEntryNotifier.sln
-dotnet run --project src/HorseEntryNotifier.Console -- horse add "ジェットシェヴロン" --memo "牡2" --nominator "田中"
+dotnet run --project src/HorseEntryNotifier.Console -- horse add "ジェットシェヴロン" --memo "POG指名馬"
 dotnet run --project src/HorseEntryNotifier.Console -- horse list
 dotnet run --project src/HorseEntryNotifier.Console -- check --dry-run
 ```
@@ -47,15 +47,12 @@ dotnet run --project src/HorseEntryNotifier.Console -- check --from 2026-06-22 -
 
 ```powershell
 dotnet run --project src/HorseEntryNotifier.Console -- horse add "アステリアドンナ"
-dotnet run --project src/HorseEntryNotifier.Console -- horse add "ジェットシェヴロン" --memo "牡2" --nominator "田中"
-dotnet run --project src/HorseEntryNotifier.Console -- horse nominate "ジェットシェヴロン" "佐藤"
+dotnet run --project src/HorseEntryNotifier.Console -- horse add "ジェットシェヴロン" --memo "POG指名馬"
 dotnet run --project src/HorseEntryNotifier.Console -- horse remove "アステリアドンナ"
 dotnet run --project src/HorseEntryNotifier.Console -- horse list
 ```
 
-`--nominator` はPOGの指名者を専用項目として保存します。既存馬の指名者だけを変更するときは `horse nominate` を使います。Discord通知とdry-runでは「🎯 指名者」として独立表示されます。
-
-`remove` は履歴を壊さず `Enabled=false` にします。同じ馬を再度 `add` すると有効に戻ります。データベースは既定で `horse-entry-notifier.db` です。旧バージョンのDBは起動時に指名者列が自動追加され、既存の馬名・性別メモ・通知履歴は保持されます。
+`remove` は履歴を壊さず `Enabled=false` にします。同じ馬を再度 `add` すると有効に戻ります。データベースは既定で `horse-entry-notifier.db` です。
 
 ## Discord Webhookを設定する
 

@@ -6,7 +6,6 @@ public sealed class RegisteredHorse
     public required string HorseName { get; set; }
     public required string NormalizedHorseName { get; set; }
     public string? Memo { get; set; }
-    public string? NominatorName { get; set; }
     public bool Enabled { get; set; } = true;
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset UpdatedAt { get; set; }

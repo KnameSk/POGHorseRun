@@ -35,7 +35,6 @@ internal static class TestData
         Id = 1,
         HorseName = name,
         NormalizedHorseName = name,
-        NominatorName = "田中",
         Enabled = true,
         CreatedAt = FixedClock.Instance.Now,
         UpdatedAt = FixedClock.Instance.Now

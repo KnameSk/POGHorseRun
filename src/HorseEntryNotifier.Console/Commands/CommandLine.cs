@@ -3,10 +3,9 @@ using System.Globalization;
 namespace HorseEntryNotifier.ConsoleApp.Commands;
 
 internal abstract record ConsoleCommand;
-internal sealed record HorseAddCommand(string HorseName, string? Memo, string? NominatorName) : ConsoleCommand;
+internal sealed record HorseAddCommand(string HorseName, string? Memo) : ConsoleCommand;
 internal sealed record HorseRemoveCommand(string HorseName) : ConsoleCommand;
 internal sealed record HorseListCommand : ConsoleCommand;
-internal sealed record HorseNominateCommand(string HorseName, string NominatorName) : ConsoleCommand;
 internal sealed record CheckCommand(DateOnly? From, DateOnly? To, bool DryRun) : ConsoleCommand;
 internal sealed record HelpCommand : ConsoleCommand;
 
@@ -36,15 +35,10 @@ internal static class CommandLine
 
         return args[1].ToLowerInvariant() switch
         {
-            "add" when args.Length >= 3 => new HorseAddCommand(
-                args[2],
-                ReadOption(args, "--memo"),
-                ReadOption(args, "--nominator") ?? ReadOption(args, "--owner")),
+            "add" when args.Length >= 3 => new HorseAddCommand(args[2], ReadOption(args, "--memo")),
             "remove" when args.Length >= 3 => new HorseRemoveCommand(args[2]),
             "list" => new HorseListCommand(),
-            "nominate" when args.Length >= 4 => new HorseNominateCommand(args[2], args[3]),
-            _ => throw new ArgumentException(
-                "horse add <馬名> / horse nominate <馬名> <指名者> / horse remove <馬名> / horse list を使用してください。")
+            _ => throw new ArgumentException("horse add <馬名> / horse remove <馬名> / horse list を使用してください。")
         };
     }
 
